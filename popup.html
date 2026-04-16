@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume DOC Builder</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="card">
+        <p class="eyebrow">Resume Builder</p>
+        <h1>Build a polished resume file</h1>
+        <p class="description">
+          Paste resume plain text below. The extension will organize the content
+          into a cleaner resume layout and let you download it as a DOC or PDF.
+        </p>
+
+        <label class="field-label" for="resume-input">Resume plain text</label>
+        <textarea
+          id="resume-input"
+          placeholder="John Doe&#10;Senior Software Engineer&#10;john@example.com | +1 555 010 1010 | linkedin.com/in/johndoe&#10;&#10;SUMMARY&#10;Results-driven engineer with 8+ years of experience...&#10;&#10;EXPERIENCE&#10;Senior Software Engineer | Example Corp | 2021 - Present&#10;- Led product delivery for enterprise tools&#10;- Improved API response times by 38%&#10;&#10;EDUCATION&#10;B.S. in Computer Science | State University"
+          spellcheck="false"
+        ></textarea>
+
+        <div class="button-row">
+          <button id="generate-doc" class="primary-button" type="button">
+            Generate the DOC file
+          </button>
+          <button id="generate-pdf" class="secondary-button" type="button">
+            Generate the PDF file
+          </button>
+        </div>
+
+        <p class="helper-text">
+          Tip: section headers like <strong>Summary</strong>,
+          <strong>Experience</strong>, <strong>Education</strong>, and
+          <strong>Skills</strong> produce the cleanest formatting.
+        </p>
+        <p id="status-message" class="status-message" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

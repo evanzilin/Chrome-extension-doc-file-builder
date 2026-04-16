@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Resume DOC Builder",
+  "version": "1.0.0",
+  "description": "Paste resume text, structure it, and download it as DOC or PDF.",
+  "permissions": ["downloads"],
+  "action": {
+    "default_title": "Resume DOC Builder",
+    "default_popup": "popup.html"
+  }
+}

@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 580px;
+  min-height: 720px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #eef4ff 0%, #f9fbff 100%);
+  color: #172033;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+}
+
+.card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 18px 50px rgba(23, 32, 51, 0.12);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4c63d2;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.description,
+.helper-text,
+.status-message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #53627c;
+}
+
+.field-label {
+  display: inline-block;
+  margin: 22px 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #172033;
+}
+
+textarea {
+  width: 100%;
+  min-height: 340px;
+  resize: vertical;
+  border: 1px solid #d6def0;
+  border-radius: 18px;
+  padding: 18px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #172033;
+  background: #fbfcff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus {
+  border-color: #4c63d2;
+  box-shadow: 0 0 0 4px rgba(76, 99, 210, 0.12);
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+button {
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.primary-button {
+  background: #4c63d2;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(76, 99, 210, 0.22);
+}
+
+.secondary-button {
+  background: #e9eefc;
+  color: #21305e;
+}
+
+.helper-text {
+  margin-top: 16px;
+}
+
+.status-message {
+  min-height: 24px;
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+.status-message.error {
+  color: #b42318;
+}
+
+.status-message.success {
+  color: #067647;
+}
