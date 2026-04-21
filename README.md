@@ -1,14 +1,14 @@
-# Resume DOC Builder Chrome Extension
+# Job Application Autofill Chrome Extension
 
-This Chrome extension lets you paste plain-text resume content into a centered textarea, then download a cleaner resume file as either a Word `.doc` file or a `.pdf`.
+This Chrome extension stores your job application profile in the popup and autofills matching fields on the current page.
 
 ## Features
 
-- Middle-aligned popup UI with a large textarea for resume text
-- Primary button named `Generate the DOC file`
-- Secondary PDF export button
-- Resume parsing for common sections like Summary, Experience, Education, and Skills
-- Download support through the Chrome `downloads` API
+- Save one reusable applicant profile locally
+- Fill common fields like full name, address, phone, email, LinkedIn, GitHub, portfolio, and job title
+- Store multiple experience entries with company, role, start date, and end date
+- Store multiple education entries with school, degree, start date, and end date
+- Autofill common job application inputs on the active tab
 
 ## Load the extension
 
@@ -17,23 +17,16 @@ This Chrome extension lets you paste plain-text resume content into a centered t
 3. Click **Load unpacked**
 4. Select this folder: `resume_extension`
 
-## Best input format
+## How to use
 
-The parser works best when your text includes clear section headings, for example:
+1. Open the extension popup
+2. Enter your applicant information
+3. Click **Save Profile**
+4. Open a job application page
+5. Click **Autofill Current Page**
 
-```text
-John Doe
-Senior Software Engineer
-john@example.com | +1 555 010 1010 | linkedin.com/in/johndoe
+## Notes
 
-SUMMARY
-Results-driven engineer with 8+ years of experience...
-
-EXPERIENCE
-Senior Software Engineer | Example Corp | 2021 - Present
-- Led product delivery for enterprise tools
-- Improved API response times by 38%
-
-EDUCATION
-B.S. in Computer Science | State University
-```
+- The extension stores data in Chrome local extension storage.
+- Autofill uses field matching heuristics based on labels, names, placeholders, and nearby text.
+- Review the application form after autofill, because job sites use different field structures and custom components.

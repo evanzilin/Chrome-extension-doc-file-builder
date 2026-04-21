@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Resume DOC Builder",
-  "version": "1.0.0",
-  "description": "Paste resume text, structure it, and download it as DOC or PDF.",
-  "permissions": ["downloads"],
+  "name": "Job Application Autofill",
+  "version": "2.0.0",
+  "description": "Save your job application details and autofill matching fields on the current page.",
+  "permissions": ["storage", "activeTab", "scripting"],
   "action": {
-    "default_title": "Resume DOC Builder",
+    "default_title": "Job Application Autofill",
     "default_popup": "popup.html"
   }
 }

@@ -3,45 +3,211 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resume DOC Builder</title>
+    <title>Job Application Autofill</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
     <main class="app-shell">
       <section class="card">
-        <p class="eyebrow">Resume Builder</p>
-        <h1>Build a polished resume file</h1>
+        <p class="eyebrow">Job Autofill</p>
+        <h1>Save your application profile</h1>
         <p class="description">
-          Paste resume plain text below. The extension will organize the content
-          into a cleaner resume layout and let you download it as a DOC or PDF.
+          Enter your job application details once, then autofill matching fields
+          on the current page.
         </p>
 
-        <label class="field-label" for="resume-input">Resume plain text</label>
-        <textarea
-          id="resume-input"
-          placeholder="John Doe&#10;Senior Software Engineer&#10;john@example.com | +1 555 010 1010 | linkedin.com/in/johndoe&#10;&#10;SUMMARY&#10;Results-driven engineer with 8+ years of experience...&#10;&#10;EXPERIENCE&#10;Senior Software Engineer | Example Corp | 2021 - Present&#10;- Led product delivery for enterprise tools&#10;- Improved API response times by 38%&#10;&#10;EDUCATION&#10;B.S. in Computer Science | State University"
-          spellcheck="false"
-        ></textarea>
-
-        <div class="button-row">
-          <button id="generate-doc" class="primary-button" type="button">
-            Generate the DOC file
+        <div class="button-row button-row-top">
+          <button id="save-profile" class="primary-button" type="button">
+            Save Profile
           </button>
-          <button id="generate-pdf" class="secondary-button" type="button">
-            Generate the PDF file
+          <button id="autofill-page" class="secondary-button" type="button">
+            Autofill Current Page
+          </button>
+          <button id="clear-profile" class="danger-button" type="button">
+            Clear Stored Data
           </button>
         </div>
 
         <p class="helper-text">
-          Tip: section headers like <strong>Summary</strong>,
-          <strong>Experience</strong>, <strong>Education</strong>, and
-          <strong>Skills</strong> produce the cleanest formatting.
+          Tip: save your profile first, then open a job application page and use
+          <strong>Autofill Current Page</strong>.
         </p>
         <p id="status-message" class="status-message" aria-live="polite"></p>
+
+        <form id="profile-form" class="profile-form">
+          <section class="form-section">
+            <div class="section-heading">
+              <h2>Basic Information</h2>
+              <p>These values are used for common top-level application fields.</p>
+            </div>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>First Name</span>
+                <input id="first-name" name="firstName" type="text" autocomplete="given-name" />
+              </label>
+
+              <label class="field">
+                <span>Last Name</span>
+                <input id="last-name" name="lastName" type="text" autocomplete="family-name" />
+              </label>
+
+              <label class="field">
+                <span>Full Name</span>
+                <input id="full-name" name="fullName" type="text" autocomplete="name" />
+              </label>
+
+              <label class="field field-wide">
+                <span>Address</span>
+                <input id="address" name="address" type="text" autocomplete="street-address" />
+              </label>
+
+              <label class="field">
+                <span>City</span>
+                <input id="city" name="city" type="text" autocomplete="address-level2" />
+              </label>
+
+              <label class="field">
+                <span>State (US only)</span>
+                <input id="state" name="state" type="text" autocomplete="address-level1" />
+              </label>
+
+              <label class="field">
+                <span>Country</span>
+                <input id="country" name="country" type="text" autocomplete="country-name" />
+              </label>
+
+              <label class="field">
+                <span>Phone Number</span>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" />
+              </label>
+
+              <label class="field">
+                <span>Email</span>
+                <input id="email" name="email" type="email" autocomplete="email" />
+              </label>
+
+              <label class="field">
+                <span>LinkedIn URL</span>
+                <input id="linkedin-url" name="linkedinUrl" type="url" />
+              </label>
+
+              <label class="field">
+                <span>GitHub URL</span>
+                <input id="github-url" name="githubUrl" type="url" />
+              </label>
+
+              <label class="field">
+                <span>Portfolio URL</span>
+                <input id="portfolio-url" name="portfolioUrl" type="url" />
+              </label>
+
+              <label class="field">
+                <span>Job Title</span>
+                <input id="job-title" name="jobTitle" type="text" autocomplete="organization-title" />
+              </label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading section-heading-row">
+              <div>
+                <h2>Experience</h2>
+                <p>Add one or more work history entries for application forms.</p>
+              </div>
+              <button id="add-experience" class="ghost-button" type="button">
+                Add Experience
+              </button>
+            </div>
+
+            <div id="experience-list" class="entry-list"></div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading section-heading-row">
+              <div>
+                <h2>Education</h2>
+                <p>Add one or more education entries for school sections.</p>
+              </div>
+              <button id="add-education" class="ghost-button" type="button">
+                Add Education
+              </button>
+            </div>
+
+            <div id="education-list" class="entry-list"></div>
+          </section>
+        </form>
+
       </section>
     </main>
 
-    <script src="node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+    <template id="experience-template">
+      <article class="entry-card" data-entry-type="experience">
+        <div class="entry-card-header">
+          <h3>Experience Entry</h3>
+          <button class="remove-button" type="button">Remove</button>
+        </div>
+
+        <div class="field-grid">
+          <label class="field">
+            <span>Company</span>
+            <input data-field="company" type="text" />
+          </label>
+
+          <label class="field">
+            <span>Job Title</span>
+            <input data-field="jobTitle" type="text" />
+          </label>
+
+          <label class="field">
+            <span>Experience Address</span>
+            <input data-field="address" type="text" placeholder="Office address or work location" />
+          </label>
+
+          <label class="field">
+            <span>Start Date</span>
+            <input data-field="startDate" type="text" placeholder="MM/YYYY or Month YYYY" />
+          </label>
+
+          <label class="field">
+            <span>End Date</span>
+            <input data-field="endDate" type="text" placeholder="MM/YYYY, Month YYYY, or Present" />
+          </label>
+        </div>
+      </article>
+    </template>
+
+    <template id="education-template">
+      <article class="entry-card" data-entry-type="education">
+        <div class="entry-card-header">
+          <h3>Education Entry</h3>
+          <button class="remove-button" type="button">Remove</button>
+        </div>
+
+        <div class="field-grid">
+          <label class="field">
+            <span>School</span>
+            <input data-field="school" type="text" />
+          </label>
+
+          <label class="field">
+            <span>Degree</span>
+            <input data-field="degree" type="text" />
+          </label>
+
+          <label class="field">
+            <span>Start Date</span>
+            <input data-field="startDate" type="text" placeholder="MM/YYYY or Month YYYY" />
+          </label>
+
+          <label class="field">
+            <span>End Date</span>
+            <input data-field="endDate" type="text" placeholder="MM/YYYY, Month YYYY, or Present" />
+          </label>
+        </div>
+      </article>
+    </template>
+
     <script src="popup.js"></script>
   </body>
 </html>
